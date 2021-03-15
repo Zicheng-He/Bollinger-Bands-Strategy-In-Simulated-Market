@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Style-Type" content="text/css" /> 
+    <meta name="viewport" content="width=device-width">
+    <title>index.html</title>
+    <link href="/library/skin/tool_base.css" type="text/css" rel="stylesheet" media="all" />
+    <link href="/library/skin/morpheus-nyu/tool.css" type="text/css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="/library/js/headscripts.js"></script>
+<script type="text/javascript" src="/media-gallery-tool/js/kaltura-upgrade.js"></script>    <style>body { padding: 5px !important; }</style>
+  </head>
+  <body>
+{% extends "base.html" %}
+{% block content %}
+<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="/Stock_selection">Stock Selection</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Train_model">Train Model</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/Back_test">Back Testing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Probation_test">Probation Testing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/start_trading">Start Trading</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/manual_trading">Manual Trading</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/client_down">Client Down</a>
+        </li>
+    </ul>
+</nav>
+
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-5">
+    <h3><strong> '</strong></h3>
+    <h3><strong>Bollinger Bands Trading Model</strong></h3>
+	<div align="center">
+		<table cellspacing="0" cellpadding="0" border="0" style="font-family:Georgia, Garamond, Serif;">
+			<tbody>
+				<tr style="font-variant:small-caps;font-style:normal;color:black;font-size:20px;">
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							Bollinger Bands are a type of price envelope developed by John BollingerOpens. 
+							(Price envelopes define upper and lower price range levels.) Bollinger Bands are envelopes plotted at a standard deviation level above and below a simple moving average of the price. 
+							Because the distance of the bands is based on standard deviation, they adjust to volatility swings in the underlying price.
+						</p>
+					</td>
+				</tr>
+				<tr style="font-variant:small-caps;font-style:normal;color:black;font-size:20px;">
+					<th width="881" valign="top">
+						<p>
+							<strong>Stock Selection</strong>
+						</p>
+					</th>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							Within S&P500 component pool, select 10 stocks with highest 5-minute volatility over the last month of the historical data part.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							Reason: 
+                            1.	S&P 500 components are with large size, high liquidity.
+                            2.	Since using intraday data for generating trading signals, we check the vol among minutes over one month (a short period)
+                            3.	Higher volatility may trigger signals more often, more signals can lead better test the efficacy of trading model (i.e. training params)
+
+						</p>
+					</td>
+				</tr>
+				<tr style="font-variant:small-caps;font-style:normal;color:black;font-size:20px;">
+					<th width="881" valign="top">
+						<p>
+							<strong>Bollinger Bands Trading Logic</strong>
+						</p>
+					</th>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							1) X: The H-period SMA. This serves as both the center of the BBs, and the baseline for determining the location of the two bands
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							2) Up : The upper band line that is k1 (default is 2) standard deviation from the H-minute SMA
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							3) Down : The lower band line that is k1 standard deviation from the H-period SMA
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							4) Open Trades:
+								<br>&nbsp;&nbsp;&nbsp;&nbsp;• Open short position if Close >= Up, sell the stock 
+								<br>&nbsp;&nbsp;&nbsp;&nbsp;• Open long position if Close <= Down, buy the stock 
+						</p>
+					</td>
+				</tr>
+				<td width="881" valign="top">
+						<p>
+							5) Close Trades:
+								<br>&nbsp;&nbsp;&nbsp;&nbsp;• Close the open positions when Close return within Up and Down </br>
+						</p>
+					</td>
+				</tr>
+				<tr style="font-variant:small-caps;font-style:normal;color:black;font-size:20px;">
+					<th width="881" valign="top">
+						<p>
+							<strong>Back Testing</strong>
+						</p>
+					</th>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							Use the intraday 1m-price data from the recent 1 week, doing P&L calculation
+						</p>
+					</td>
+				</tr>
+				<tr style="font-variant:small-caps;font-style:normal;color:black;font-size:20px;">
+					<th width="881" valign="top">
+						<p>
+							<strong>Probation Testing</strong>
+						</p>
+					</th>
+				</tr>
+				<tr>
+					<td width="881" valign="top">
+						<p>
+							Any two trading dates before current date could be used for conducting BB trading model
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</main>
+<br></br>
+<br></br>
+
+{% endblock %}
+  </body>
+</html>

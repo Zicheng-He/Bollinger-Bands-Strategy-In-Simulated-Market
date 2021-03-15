@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Style-Type" content="text/css" /> 
+    <meta name="viewport" content="width=device-width">
+    <title>pair_trade_back_test_result.html</title>
+    <link href="/library/skin/tool_base.css" type="text/css" rel="stylesheet" media="all" />
+    <link href="/library/skin/morpheus-nyu/tool.css" type="text/css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="/library/js/headscripts.js"></script>
+<script type="text/javascript" src="/media-gallery-tool/js/kaltura-upgrade.js"></script>    <style>body { padding: 5px !important; }</style>
+  </head>
+  <body>
+{% extends "base.html" %}
+{% block content %}
+<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="/Stock_selection">Stock Selection</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Train_model">Train Model</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/Back_test">Back Testing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Probation_test">Probation Testing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/start_trading">Start Trading</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/manual_trading">Manual Trading</a>
+        </li>
+		<li class="nav-item">
+            <a class="nav-link" href="/client_down">Client Down</a>
+        </li>
+    </ul>
+</nav>
+
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-5">
+    <h3>'</h3>
+    <h3>Back Test Analysis</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            	<th style="text-align:center">Ticker</th>
+                <th style="text-align:center">H</th>
+                <th style="text-align:center">K1</th>
+				<th style="text-align:center">Notional</th>
+				<th style="text-align:center">Profit</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for trade in bt_list %}
+            <tr>
+            	<td> {{trade.Ticker}}</td>
+                <td> {{trade.H}}</td>
+                <td> {{trade.K1}}</td>
+				<td> {{trade.Notional}}</td>
+				<td> {{trade.Profit_Loss}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5"></td>
+					<td>{{ total }}</td>
+				</tr>
+			</tfoot>
+        </table>
+    </div>
+</main>
+{% endblock %}
+  </body>
+</html>
